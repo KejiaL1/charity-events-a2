@@ -7,7 +7,7 @@
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8mb4 */;
+/*!50503 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -81,7 +81,7 @@ CREATE TABLE `events` (
 
 LOCK TABLES `events` WRITE;
 /*!40000 ALTER TABLE `events` DISABLE KEYS */;
-INSERT INTO `events` VALUES (1,'City Charity Run',1,1,'10km city run','raise funds for schools','City Park','San Jose','CA','2025-10-05 08:00:00','2025-10-05 12:00:00',3000,0,1000000,250000,'upcoming','https://picsum.photos/seed/run/800/400'),(2,'Autumn Gala Night',2,1,'Black-tie dinner','scholarship program','Grand Hotel','San Francisco','CA','2025-11-02 18:00:00','2025-11-02 22:30:00',15000,0,3000000,500000,'upcoming','https://picsum.photos/seed/gala/800/400'),(3,'Eco Auction 2025',3,2,'Auction donated items','reforestation','Civic Center','Oakland','CA','2025-10-20 17:00:00','2025-10-20 20:00:00',0,1,1500000,300000,'upcoming','https://picsum.photos/seed/auction/800/400'),(4,'Community Blood Drive',4,3,'Donate blood','local hospital support','Health Hub','San Jose','CA','2025-09-15 09:00:00','2025-09-15 17:00:00',0,1,0,0,'past','https://picsum.photos/seed/blood/800/400'),(5,'Bay Area Fun Run',1,2,'5km fun run','park cleanup','Bay Park','San Mateo','CA','2025-10-12 08:00:00','2025-10-12 11:00:00',2000,0,800000,120000,'upcoming','https://picsum.photos/seed/run2/800/400'),(6,'Winter Gala',2,1,'formal dinner','winter shelter','Royal Hall','San Francisco','CA','2025-12-10 19:00:00','2025-12-10 23:00:00',18000,0,4000000,700000,'upcoming','https://picsum.photos/seed/gala2/800/400'),(7,'Charity Auction - Art',3,3,'artworks by local artists','youth center','Art House','San Jose','CA','2025-08-01 16:00:00','2025-08-01 19:00:00',0,1,1200000,900000,'past','https://picsum.photos/seed/auction2/800/400'),(8,'Downtown Run',1,1,'3km family run','food bank','Downtown Square','Oakland','CA','2025-10-26 08:30:00','2025-10-26 10:30:00',1000,0,500000,100000,'upcoming','https://picsum.photos/seed/run3/800/400');
+INSERT INTO `events` VALUES (1,'City Charity Run',1,1,'A 10km community charity run through the lush greens of Centennial Parklands. Family-friendly with hydration stations and course marshals.','Raise funds for local school programs and community sports initiatives.','Centennial Parklands','Sydney','NSW','2025-10-12 08:00:00','2025-10-12 12:00:00',3000,0,1000000,250000,'upcoming','assets/img/city_charity_run.jpg'),(2,'Autumn Gala Night',2,1,'A black-tie gala featuring a three-course dinner, keynote speeches, and a live string quartet.','Raise scholarships for disadvantaged students in Greater Sydney.','Sydney Town Hall','Sydney','NSW','2025-11-09 18:00:00','2025-11-09 22:30:00',15000,0,3000000,500000,'upcoming','assets/img/autumn_gala_night.jpg'),(3,'Eco Auction 2025',3,2,'An auction of eco-friendly products and donated artworks to support reforestation and conservation projects.','Fund native tree planting and habitat restoration across NSW.','ICC Sydney – Parkside Ballroom','Sydney','NSW','2025-10-27 17:00:00','2025-10-27 20:00:00',0,1,1500000,300000,'upcoming','assets/img/eco_auction_2025.jpg'),(4,'Community Blood Drive',4,3,'Donate life-saving blood at our Town Hall donor centre. Appointments recommended; walk-ins welcome.','Support local hospitals with critical blood supplies.','Red Cross Lifeblood Donor Centre – Town Hall','Sydney','NSW','2025-10-18 03:32:34','2025-10-18 05:32:34',0,1,0,0,'upcoming','assets/img/community_blood_drive.jpg'),(5,'Bay Area Fun Run',1,2,'A 5km fun run around The Domain with live music and volunteer pacers. Great for beginners and families.','Support local park maintenance and environmental education.','The Domain','Sydney','NSW','2025-10-19 08:00:00','2025-10-19 11:00:00',2000,0,800000,120000,'upcoming','assets/img/bay_area_fun_run.jpg'),(6,'Winter Gala',2,1,'A formal winter fundraising gala with celebrity hosts and a silent auction.','Support winter shelter and essential services for vulnerable communities.','The Star Event Centre','Sydney','NSW','2025-12-17 19:00:00','2025-12-17 23:00:00',18000,0,4000000,700000,'upcoming','assets/img/winter_gala.jpg');
 /*!40000 ALTER TABLE `events` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,4 +120,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-09-30 19:17:41
+-- Dump completed on 2025-10-04 18:26:02
