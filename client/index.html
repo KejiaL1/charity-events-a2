@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <title>Charity Events - Home</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="search.html">Search</a>
+  </nav>
+
+  <main>
+    <h1>Welcome to Charity Events</h1>
+    <p class="meta">Our mission: Raise funds for charitable projects through events.</p>
+
+    <section id="events"></section>
+  </main>
+
+  <script type="module">
+    import { API_BASE, fetchJSON, formatDateTime, isEnded } from './assets/js/common.js';
+
+    async function loadHome() {
+      const box = document.getElementById('events');
+      try {
+        const list = await fetchJSON(`${API_BASE}/events`);
+        if (!list.length) {
+          box.innerHTML = '<p>No events found.</p>';
+          return;
+        }
+        box.innerHTML = list.map(ev => `
+          <article class="card">
+            ${ev.hero_image_url ? `<img src="${ev.hero_image_url}" alt="${ev.title}" />` : ''}
+            <h3>${ev.title}</h3>
+            <p class="meta">${ev.category} · ${ev.org_name}</p>
+            <p class="meta">${ev.city || ''} ${ev.state || ''}</p>
+            <p class="meta">${formatDateTime(ev.start_datetime)} — ${formatDateTime(ev.end_datetime)}</p>
+            <span class="badge ${isEnded(ev.end_datetime) ? 'ended' : 'upcoming'}">
+              ${isEnded(ev.end_datetime) ? 'Ended' : 'Upcoming'}
+            </span>
+            <p><a href="event.html?id=${ev.id}">View Details →</a></p>
+          </article>
+        `).join('');
+      } catch (e) {
+        console.error(e);
+        box.innerHTML = '<p class="error">Loading failed, please try again later.</p>';
+      }
+    }
+
+    loadHome();
+  </script>
+</body>
+</html>
+

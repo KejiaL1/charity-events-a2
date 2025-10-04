@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <title>Event Details</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="search.html">Search</a>
+  </nav>
+
+  <main id="detail"></main>
+
+  <script type="module">
+    import { API_BASE, fetchJSON, formatDateTime } from './assets/js/common.js';
+
+    function getId() {
+      const url = new URL(location.href);
+      return url.searchParams.get('id');
+    }
+
+    async function loadDetail() {
+      const id = getId();
+      const box = document.getElementById('detail');
+      if (!id) {
+        box.innerHTML = '<p class="error">Lack of event ID.</p>';
+        return;
+      }
+      try {
+        const ev = await fetchJSON(`${API_BASE}/events/${id}`);
+        box.innerHTML = `
+          <article class="card">
+            ${ev.hero_image_url ? `<img src="${ev.hero_image_url}" alt="${ev.title}" />` : ''}
+            <h1>${ev.title}</h1>
+            <p class="meta">${ev.category_name} · ${ev.org_name}</p>
+            <p class="meta">Location: ${ev.venue || ''} · ${ev.city || ''} ${ev.state || ''}</p>
+            <p class="meta">Time: ${formatDateTime(ev.start_datetime)} — ${formatDateTime(ev.end_datetime)}</p>
+            <h3>Summary</h3>
+            <p>${ev.description || '(None available)'}</p>
+            <h3>Purpose</h3>
+            <p>${ev.purpose || '(None available)'}</p>
+            <h3>Organizer</h3>
+            <p>${ev.org_about || '(None available)'}</p>
+            <p>Contact: ${ev.contact_email || '(None available)'}</p>
+            <button id="registerBtn">Register/Purchase Tickets (Illustrative)</button>
+          </article>
+        `;
+        document.getElementById('registerBtn')?.addEventListener('click', () => {
+          alert('Registration feature is under development (not required for A2).');
+        });
+      } catch (e) {
+        console.error(e);
+        box.innerHTML = '<p class="error">Loading failed or event not found.</p>';
+      }
+    }
+
+    loadDetail();
+  </script>
+</body>
+</html>
+

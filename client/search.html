@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <title>Search Events</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="search.html">Search</a>
+  </nav>
+
+  <main>
+    <h1>Search</h1>
+    <form id="searchForm">
+      <label>Date:
+        <input type="date" name="date" />
+      </label>
+      <label>City:
+        <input type="text" name="city" placeholder="如 San Jose" />
+      </label>
+      <label>Category:
+        <select name="categoryId" id="categorySelect">
+          <option value="">All</option>
+        </select>
+      </label>
+      <button type="submit">Search</button>
+      <button type="button" id="resetBtn">Reset</button>
+    </form>
+
+    <section id="results"></section>
+  </main>
+
+  <script type="module">
+    import { API_BASE, fetchJSON, formatDateTime, isEnded } from './assets/js/common.js';
+
+    async function loadCategories() {
+      const sel = document.getElementById('categorySelect');
+      try {
+        const list = await fetchJSON(`${API_BASE}/categories`);
+        list.forEach(c => {
+          const opt = document.createElement('option');
+          opt.value = c.id;
+          opt.textContent = c.name;
+          sel.appendChild(opt);
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function search(params) {
+      const url = new URL(`${API_BASE}/events`);
+      Object.entries(params).forEach(([k, v]) => { if (v) url.searchParams.set(k, v); });
+      const list = await fetchJSON(url.toString());
+      const box = document.getElementById('results');
+      if (!list.length) {
+        box.innerHTML = '<p>No matching events found.</p>';
+        return;
+      }
+      box.innerHTML = list.map(ev => `
+        <article class="card">
+          <h3>${ev.title}</h3>
+          <p class="meta">${ev.category} · ${ev.org_name} · ${ev.city || ''}</p>
+          <p class="meta">${formatDateTime(ev.start_datetime)} — ${formatDateTime(ev.end_datetime)}
+             <span class="badge ${isEnded(ev.end_datetime) ? 'ended' : 'upcoming'}">
+               ${isEnded(ev.end_datetime) ? 'Ended' : 'Upcoming'}
+             </span>
+          </p>
+          <p><a href="event.html?id=${ev.id}">Details →</a></p>
+        </article>
+      `).join('');
+    }
+
+    document.getElementById('searchForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const fd = new FormData(e.currentTarget);
+      search({
+        date: fd.get('date'),
+        city: fd.get('city'),
+        categoryId: fd.get('categoryId')
+      }).catch(err => {
+        console.error(err);
+        document.getElementById('results').innerHTML = '<p class="error">搜索失败。</p>';
+      });
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      document.getElementById('searchForm').reset();
+      document.getElementById('results').innerHTML = '';
+    });
+
+    loadCategories().catch(console.error);
+  </script>
+</body>
+</html>
+
